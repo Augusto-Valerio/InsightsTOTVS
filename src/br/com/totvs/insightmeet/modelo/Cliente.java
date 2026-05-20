@@ -1,6 +1,8 @@
 package br.com.totvs.insightmeet.modelo;
 
-public class Cliente {
+import br.com.totvs.insightmeet.interfaces.Resumivel;
+
+public class Cliente implements Resumivel {
     private int id;
     private String nome;
     private String segmento;
@@ -30,6 +32,7 @@ public class Cliente {
         setNivelSatisfacao(nivelSatisfacao);
     }
 
+    @Override
     public String exibirResumo() {
         return "Cliente: " + nome +
                 " | Segmento: " + segmento +
