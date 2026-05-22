@@ -10,6 +10,7 @@ public class InsightOportunidade extends Insight {
         this.potencialGanho = 0;
     }
 
+    // Construtor com os dados principais do insight de oportunidade.
     public InsightOportunidade(int id, String titulo, String descricao, int prioridade, Transcricao transcricao, String areaOportunidade) {
         super(id, titulo, descricao, prioridade, transcricao);
         this.areaOportunidade = areaOportunidade;
@@ -23,7 +24,7 @@ public class InsightOportunidade extends Insight {
 
     @Override
     public String gerarAcaoRecomendada() {
-        if (potencialGanho >= 1000) {
+        if (potencialGanho >= 10000) {
             return "Encaminhar oportunidade para o time comercial com prioridade alta.";
         } else if (potencialGanho >= 3000) {
             return "Avaliar proposta comercial e acompanhar interesse do cliente.";
