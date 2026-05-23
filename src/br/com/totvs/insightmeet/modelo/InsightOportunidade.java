@@ -11,7 +11,8 @@ public class InsightOportunidade extends Insight {
     }
 
     // Construtor com os dados principais do insight de oportunidade.
-    public InsightOportunidade(int id, String titulo, String descricao, int prioridade, Transcricao transcricao, String areaOportunidade) {
+    public InsightOportunidade(int id, String titulo, String descricao, int prioridade,
+                               Transcricao transcricao, String areaOportunidade, double potencialGanho) {
         super(id, titulo, descricao, prioridade, transcricao);
         this.areaOportunidade = areaOportunidade;
         setPotencialGanho(potencialGanho);
