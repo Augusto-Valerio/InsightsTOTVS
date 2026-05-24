@@ -81,9 +81,7 @@ public class MenuControle {
 
         String email = lerTextoObrigatorio("Email do cliente: ");
 
-        System.out.println("Nível de satisfação de 0 a 5: ");
-        int nivelDeSatisfacao = sc.nextInt();
-        sc.nextLine();
+        int nivelDeSatisfacao = lerNivelSatisfacao();
 
         Cliente cliente = new Cliente(1, nomeCliente, segmento, email, nivelDeSatisfacao);
 
@@ -159,5 +157,29 @@ public class MenuControle {
 
         return valor;
     }
+
+    private int lerNivelSatisfacao() {
+        String entrada = "";
+
+        while (!entrada.equals("0") &&
+                !entrada.equals("1") &&
+                !entrada.equals("2") &&
+                !entrada.equals("3") &&
+                !entrada.equals("4") &&
+                !entrada.equals("5")) {
+            System.out.println("Nível de satisfação de 0 a 5: ");
+            entrada = sc.nextLine();
+
+            if (!entrada.equals("0") && !entrada.equals("1") &&
+                    !entrada.equals("2") &&
+                    !entrada.equals("3") &&
+                    !entrada.equals("4") &&
+                    !entrada.equals("5")) {
+                System.out.println("Informe um número de 0 a 5.");
+            }
+        }
+        return Integer.parseInt(entrada);
+    }
+
 
 }
