@@ -54,12 +54,15 @@ public class DadosSeed {
 
     public Transcricao criarTranscricaoSeed(Reuniao reuniao) {
         // Texto com termos de risco e oportunidade para validar a análise automática.
-        String conteudo = "O cliente relatou demora no suporte. " +
-                "A demora voltou a acontecer em outros atendimentos e essa demora gerou insatisfação. " +
-                "O cliente mencionou problema no retorno da equipe e reforçou que esse problema impacta a operação. " +
-                "Também sinalizou possível cancelamento. " +
-                "Apesar disso, demonstrou interesse em melhorar o processo e interesse em novas soluções. " +
-                "A equipe também percebeu interesse em expandir o contrato, expandir para novas áreas e contratar novos módulos.";
+        String conteudo = "Cliente: Olá, gostaria de falar sobre alguns pontos do atendimento. " +
+                "Cliente: Nas últimas semanas tivemos muita demora no suporte. " +
+                "Cliente: Essa demora aconteceu mais de uma vez e acabou gerando insatisfação na equipe. " +
+                "Cliente: Também tivemos um problema no retorno dos chamados. " +
+                "Cliente: Esse problema impactou nossa operação e nos fez pensar em cancelamento. " +
+                "TOTVS: Entendemos a situação e vamos avaliar os pontos mencionados. " +
+                "Cliente: Apesar disso, ainda temos interesse em melhorar o processo. " +
+                "Cliente: Também existe interesse em expandir o contrato para outras áreas. " +
+                "Cliente: Se o atendimento melhorar, podemos contratar novos módulos no futuro.";
 
         Transcricao transcricao = new Transcricao(
                 1,
