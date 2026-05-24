@@ -79,7 +79,7 @@ public class MenuControle {
 
         String segmento = lerTextoObrigatorio("Segmento do cliente: ");
 
-        String email = lerTextoObrigatorio("Email do cliente: ");
+        String email = lerEmailObrigatorio("Email do cliente: ");
 
         int nivelDeSatisfacao = lerNivelSatisfacao();
 
@@ -90,6 +90,8 @@ public class MenuControle {
         String assunto = lerTextoObrigatorio("Assunto da reunião: ");
 
         Reuniao reuniao = new Reuniao(1, tituloReuniao, LocalDate.now(), assunto, cliente);
+
+        cadastrarParticipantes(reuniao, cliente);
 
         String conteudo = lerTextoObrigatorio("Digite o texto da conversa da reunião: ");
 
@@ -105,12 +107,61 @@ public class MenuControle {
         exibirResultado(cliente, reuniao, transcricao, relatorio);
     }
 
+
+    private void exibirParticipantes(Reuniao reuniao) {
+        System.out.println("==== Anfitrião TOTVS ====");
+
+        for (Participante participante : reuniao.getParticipantes()) {
+            if (participante.pertenceEmpresa("TOTVS")) {
+                System.out.println("Nome: " + participante.getNome() +
+                        " | Cargo: " + participante.getCargo() +
+                        " | Empresa: " + participante.getEmpresa() +
+                        " | Email: " + participante.getEmail());
+            }
+        }
+
+        System.out.println();
+        System.out.println("==== Participantes do cliente ====");
+
+        boolean encontrouParticipanteCliente = false;
+
+        for (Participante participante : reuniao.getParticipantes()) {
+            if (!participante.pertenceEmpresa("TOTVS")) {
+                encontrouParticipanteCliente = true;
+
+                System.out.println("- Nome: " + participante.getNome() +
+                        " | Cargo: " + participante.getCargo() +
+                        " | Empresa: " + participante.getEmpresa() +
+                        " | Email: " + participante.getEmail());
+            }
+        }
+
+        if (!encontrouParticipanteCliente) {
+            System.out.println("Nenhum participante do cliente informado.");
+        }
+    }
+
     private void exibirResultado(Cliente cliente, Reuniao reuniao, Transcricao transcricao, RelatorioAnalise relatorio) {
         System.out.println();
         System.out.println("==== Resultado da Análise ====");
+
+        System.out.println();
+        System.out.println("==== Cliente ====");
         System.out.println(cliente.exibirResumo());
+
+        System.out.println();
+        System.out.println("==== Reunião ====");
         System.out.println(reuniao.exibirResumo());
+
+        System.out.println();
+        exibirParticipantes(reuniao);
+
+        System.out.println();
+        System.out.println("==== Transcrição ====");
         System.out.println(transcricao.exibirResumo());
+
+        System.out.println();
+        System.out.println("==== Relatório ====");
         System.out.println(relatorio.exibirResumo());
         System.out.println(relatorio.gerarResumoExecutivo());
 
@@ -143,6 +194,68 @@ public class MenuControle {
         }
     }
 
+    private void cadastrarParticipantes(Reuniao reuniao, Cliente cliente) {
+        System.out.println("==== Anfitrião TOTVS ====");
+        String nomeAnfitriao = lerTextoObrigatorio("Nome do anfitrião TOTVS: ");
+        String cargoAnfitriao = lerTextoObrigatorio("Cargo do anfitrião TOTVS: ");
+        String emailAnfitriao = lerEmailObrigatorio("Email do anfitrião TOTVS: ");
+
+        Participante anfitriao = new Participante(
+                1,
+                nomeAnfitriao,
+                cargoAnfitriao,
+                "TOTVS",
+                emailAnfitriao
+        );
+
+        reuniao.adicionarParticipante(anfitriao);
+
+        int quantidadeParticipantes = lerQuantidadeParticipantes();
+
+        for (int i = 1; i <= quantidadeParticipantes; i++) {
+            System.out.println("==== Participante " + i + " do cliente ====");
+            String nome = lerTextoObrigatorio("Nome: ");
+            String cargo = lerTextoObrigatorio("Cargo: ");
+            String email = lerEmailObrigatorio("Email: ");
+
+            Participante participante = new Participante(
+                    i + 1,
+                    nome,
+                    cargo,
+                    cliente.getNome(),
+                    email
+            );
+
+            reuniao.adicionarParticipante(participante);
+        }
+    }
+
+    private int lerQuantidadeParticipantes() {
+        String entrada = "";
+        int quantidade = -1;
+
+        while (quantidade < 0) {
+            System.out.print("Quantos participantes do cliente estarão na reunião? ");
+            entrada = sc.nextLine();
+
+            if (entrada.isBlank()) {
+                System.out.println("Preencha esse campo.");
+            } else {
+                try {
+                    quantidade = Integer.parseInt(entrada);
+
+                    if (quantidade < 0) {
+                        System.out.println("Informe zero ou mais participantes.");
+                    }
+                } catch (NumberFormatException erro) {
+                    System.out.println("Informe apenas números.");
+                }
+            }
+        }
+
+        return quantidade;
+    }
+
     private String lerTextoObrigatorio(String mensagem) {
         String valor = "";
 
@@ -167,7 +280,7 @@ public class MenuControle {
                 !entrada.equals("3") &&
                 !entrada.equals("4") &&
                 !entrada.equals("5")) {
-            System.out.println("Nível de satisfação de 0 a 5: ");
+            System.out.print("Nível de satisfação de 0 a 5: ");
             entrada = sc.nextLine();
 
             if (!entrada.equals("0") && !entrada.equals("1") &&
@@ -179,6 +292,23 @@ public class MenuControle {
             }
         }
         return Integer.parseInt(entrada);
+    }
+
+    private String lerEmailObrigatorio(String mensagem) {
+        String email = "";
+
+        while (email.isBlank() || !email.contains("@")) {
+            System.out.print(mensagem);
+            email = sc.nextLine();
+
+            if (email.isBlank()) {
+                System.out.println("Preencha esse campo.");
+            } else if (!email.contains("@")) {
+                System.out.println("Email inválido. Tente novamente.");
+            }
+        }
+
+        return email;
     }
 
 

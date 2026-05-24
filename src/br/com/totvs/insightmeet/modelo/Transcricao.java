@@ -27,9 +27,9 @@ public class Transcricao implements Resumivel {
     public String exibirResumo() {
         String tituloReuniao = reuniao != null ? reuniao.getTitulo() : "Reuniao não informada";
 
-        return "Transcrição da reunião: " + tituloReuniao +
+        return "Reunião relacionada: " + tituloReuniao +
                 " | Idioma: " + idioma +
-                " | Palavras: " + quantidadePalavras;
+                " | Palavras na transcrição: " + quantidadePalavras;
     }
 
     public void atualizarQuantidadePalavras() {
