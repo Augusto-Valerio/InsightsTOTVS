@@ -92,7 +92,7 @@ public class RelatorioAnalise implements Resumivel {
         return "Resumo executivo: " +
                 contarInsightsDeRisco() + " risco(s), " +
                 contarInsightsDeOportunidade() + " oportunidade(s), " +
-                termosRelevantes.size() + " termos(s) relevante(s).";
+                termosRelevantes.size() + " termo(s) relevante(s).";
     }
 
     public int getId() {

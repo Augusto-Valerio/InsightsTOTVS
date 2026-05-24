@@ -18,7 +18,7 @@ public class Transcricao implements Resumivel {
     // Construtor com os dados principais da transcrição.
     public Transcricao(int id, String conteudo, String idioma, Reuniao reuniao) {
         this.id = id;
-        this.conteudo = conteudo;
+        setConteudo(conteudo);
         this.idioma = idioma;
         this.reuniao = reuniao;
     }

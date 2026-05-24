@@ -43,7 +43,7 @@ public class Reuniao implements Resumivel {
     public String exibirResumo() {
         String nomeCliente = cliente != null ? cliente.getNome() : "Cliente não informado";
         return "Reunião: " + titulo +
-                " | Data:" + data +
+                " | Data: " + data +
                 " | Assunto: " + assunto +
                 " | Cliente: " + nomeCliente +
                 " | Participantes: " + participantes.size();
