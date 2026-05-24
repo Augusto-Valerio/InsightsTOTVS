@@ -20,6 +20,16 @@ public class Reuniao implements Resumivel {
     }
 
     // Construtor com os dados principais da reunião.
+    public Reuniao(int id, String titulo, LocalDate data, String assunto, Cliente cliente) {
+        this.id = id;
+        this.titulo = titulo;
+        this.data = data;
+        this.assunto = assunto;
+        this.cliente = cliente;
+        this.participantes = new ArrayList<>();
+    }
+
+    // Sobrecarga de construtor permitindo informar uma lista inicial de participantes.
     public Reuniao(int id, String titulo, LocalDate data, String assunto, Cliente cliente, List<Participante> participantes) {
         this.id = id;
         this.titulo = titulo;
