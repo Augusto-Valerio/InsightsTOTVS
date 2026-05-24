@@ -32,7 +32,7 @@ public class MenuControle {
             } else if (opcao == 0) {
                 System.out.println("Encerrando o InsightMeet TOTVS...");
             } else {
-                System.out.println("Opção inválida.");
+                System.out.println("\nOpção inválida.");
             }
 
             System.out.println();
@@ -50,10 +50,16 @@ public class MenuControle {
     }
 
     private int lerOpcao() {
-        int opcao = sc.nextInt();
-        sc.nextLine();
+        String entrada = sc.nextLine();
 
-        return opcao;
+        if (entrada.equals("1")) {
+            return 1;
+        } else if (entrada.equals("2")) {
+            return 2;
+        } else if (entrada.equals("0")) {
+            return 0;
+        }
+        return -1;
     }
 
     // Executa a análise usando dados já cadastrados para teste.
@@ -118,23 +124,30 @@ public class MenuControle {
 
         System.out.println();
         System.out.println("==== Termos relevantes: ====");
-        for (TermoRelevante termo : relatorio.getTermosRelevantes()) {
-            System.out.println("- " + termo.exibirResumo());
+        if (relatorio.getTermosRelevantes().isEmpty()) {
+            System.out.println("Nenhum termo relevante encontrado.");
+        } else {
+            for (TermoRelevante termo : relatorio.getTermosRelevantes()) {
+                System.out.println("- " + termo.exibirResumo());
+            }
         }
 
         System.out.println();
         System.out.println("==== Insights gerados: ====");
-        for (Insight insight : relatorio.getInsights()) {
-            System.out.println("\n- " + insight.exibirResumo());
-            System.out.println(" Descrição: " + insight.getDescricao());
-            System.out.println(" Ação recomendada: " + insight.gerarAcaoRecomendada());
+        if (relatorio.getInsights().isEmpty()) {
+            System.out.println("Nenhum insight gerado.");
+        } else {
+
+            for (Insight insight : relatorio.getInsights()) {
+                System.out.println("\n- " + insight.exibirResumo());
+                System.out.println(" Descrição: " + insight.getDescricao());
+                System.out.println(" Ação recomendada: " + insight.gerarAcaoRecomendada());
+            }
         }
 
         System.out.println();
         if (relatorio.possuiInsightsCriticos()) {
             System.out.println("==== Atenção: existem insights críticos para acompanhamento. ====");
-        } else {
-            System.out.println("Nenhum insight crítico identificado.");
         }
     }
 }
