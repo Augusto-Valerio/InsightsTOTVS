@@ -8,7 +8,7 @@ import br.com.totvs.insightmeet.modelo.Transcricao;
 import java.time.LocalDate;
 
 public class DadosSeed {
-    // Centraliza dados iniciais para facilitar testes e demonstrações do sistema.
+    // Dados iniciais para facilitar testes e demonstrações do sistema.
     public Cliente criarClienteSeed() {
         Cliente cliente = new Cliente(
                 1,
@@ -30,7 +30,7 @@ public class DadosSeed {
                 cliente
         );
 
-        // Participantes usados para simular uma reunião real entre TOTVS e cliente.
+        // Participantes usados para simular uma reunião real entre a TOTVS e cliente.
         Participante participanteTotvs = new Participante(
                 1,
                 "Ana Souza",
@@ -54,8 +54,12 @@ public class DadosSeed {
 
     public Transcricao criarTranscricaoSeed(Reuniao reuniao) {
         // Texto com termos de risco e oportunidade para validar a análise automática.
-        String conteudo = "O cliente relatou demora no suporte e demonstrou estar insatisfeito. " +
-                "Apesar do problema, também mostrou interesse em expandir o contrato e contratar novos módulos.";
+        String conteudo = "O cliente relatou demora no suporte. " +
+                "A demora voltou a acontecer em outros atendimentos e essa demora gerou insatisfação. " +
+                "O cliente mencionou problema no retorno da equipe e reforçou que esse problema impacta a operação. " +
+                "Também sinalizou possível cancelamento. " +
+                "Apesar disso, demonstrou interesse em melhorar o processo e interesse em novas soluções. " +
+                "A equipe também percebeu interesse em expandir o contrato, expandir para novas áreas e contratar novos módulos.";
 
         Transcricao transcricao = new Transcricao(
                 1,
