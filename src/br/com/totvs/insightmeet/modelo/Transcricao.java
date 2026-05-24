@@ -18,7 +18,7 @@ public class Transcricao implements Resumivel {
     // Construtor com os dados principais da transcrição.
     public Transcricao(int id, String conteudo, String idioma, Reuniao reuniao) {
         this.id = id;
-        this.conteudo = conteudo;
+        setConteudo(conteudo);
         this.idioma = idioma;
         this.reuniao = reuniao;
     }
@@ -27,9 +27,9 @@ public class Transcricao implements Resumivel {
     public String exibirResumo() {
         String tituloReuniao = reuniao != null ? reuniao.getTitulo() : "Reuniao não informada";
 
-        return "Transcrição da reunião: " + tituloReuniao +
+        return "Reunião relacionada: " + tituloReuniao +
                 " | Idioma: " + idioma +
-                " | Palavras: " + quantidadePalavras;
+                " | Palavras na transcrição: " + quantidadePalavras;
     }
 
     public void atualizarQuantidadePalavras() {
