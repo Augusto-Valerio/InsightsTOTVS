@@ -151,6 +151,20 @@ public class MenuControle {
         System.out.println(relatorio.exibirResumo());
         System.out.println(relatorio.gerarResumoExecutivo());
 
+        if (!entradaControle.aguardarEnterOuVoltar("Pressione Enter para ver os termos relevantes ou digite 0 para voltar ao menu.")) {
+            return;
+        }
+
+        exibirTermosRelevantes(relatorio);
+
+        if (!entradaControle.aguardarEnterOuVoltar("Pressione Enter para ver os insights gerados ou digite 0 para voltar ao menu.")) {
+            return;
+        }
+
+        exibirInsights(relatorio);
+    }
+
+    private void exibirTermosRelevantes(RelatorioAnalise relatorio) {
         System.out.println();
         System.out.println("==== Termos relevantes: ====");
         if (relatorio.getTermosRelevantes().isEmpty()) {
@@ -160,7 +174,9 @@ public class MenuControle {
                 System.out.println("- " + termo.exibirResumo());
             }
         }
+    }
 
+    private void exibirInsights(RelatorioAnalise relatorio) {
         System.out.println();
         System.out.println("==== Insights gerados: ====");
         if (relatorio.getInsights().isEmpty()) {

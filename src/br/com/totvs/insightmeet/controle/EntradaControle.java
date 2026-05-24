@@ -108,4 +108,12 @@ public class EntradaControle {
     public void fechar() {
         sc.close();
     }
+
+    public boolean aguardarEnterOuVoltar(String mensagem) {
+        System.out.println();
+        System.out.println(mensagem);
+        String entrada = sc.nextLine();
+
+        return !entrada.equals("0");
+    }
 }
