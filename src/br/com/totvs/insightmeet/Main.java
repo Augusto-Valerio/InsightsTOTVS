@@ -1,8 +1,10 @@
 package br.com.totvs.insightmeet;
 
+import br.com.totvs.insightmeet.controle.MenuControle;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("InsightMeet TOTVS");
-        System.out.println("Sistema iniciado com sucesso.");
+        MenuControle menu = new MenuControle();
+        menu.iniciar();
     }
 }
