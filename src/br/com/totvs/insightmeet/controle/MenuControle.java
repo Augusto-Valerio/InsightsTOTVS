@@ -93,7 +93,7 @@ public class MenuControle {
 
         Reuniao reuniao = new Reuniao(1, tituloReuniao, LocalDate.now(), assunto, cliente);
 
-        String conteudo = lerTextoObrigatorio("Digite a transcrição da reunião:");
+        String conteudo = lerTextoObrigatorio("Digite o texto da conversa da reunião: ");
 
         Transcricao transcricao = new Transcricao(
                 1,
