@@ -41,7 +41,7 @@ public class MenuControle {
     }
 
     private void exibirMenu() {
-        System.out.println("==== InsightMeet TOTVS ====");
+        System.out.println("==== Insights TOTVS ====");
         System.out.println("1 - Analisar dados seed");
         System.out.println("2 - Digitar nova transcrição");
         System.out.println("0 - Sair");

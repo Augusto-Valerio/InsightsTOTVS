@@ -1,5 +1,7 @@
 package br.com.totvs.insightmeet.modelo;
 
+import br.com.totvs.insightmeet.util.FormatadorMoeda;
+
 public class InsightOportunidade extends Insight {
     private String areaOportunidade;
     private double potencialGanho;
@@ -37,8 +39,8 @@ public class InsightOportunidade extends Insight {
     @Override
     public String exibirResumo() {
         return super.exibirResumo() +
-                " | Area da oportunidade: " + areaOportunidade +
-                " | Potencial de ganho: R$ " + potencialGanho;
+                " | Área da oportunidade: " + areaOportunidade +
+                " | Potencial de ganho: " + FormatadorMoeda.formatter(potencialGanho);
     }
 
     public String getAreaOportunidade() {
