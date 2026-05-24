@@ -75,14 +75,11 @@ public class MenuControle {
 
     // Executa a análise com dados informados pelo usuário no console.
     private void executarAnaliseComEntradaUsuario() {
-        System.out.println("Nome do cliente: ");
-        String nomeCliente = sc.nextLine();
+        String nomeCliente = lerTextoObrigatorio("Nome do cliente: ");
 
-        System.out.println("Segmento do cliente: ");
-        String segmento = sc.nextLine();
+        String segmento = lerTextoObrigatorio("Segmento do cliente: ");
 
-        System.out.println("Email do cliente: ");
-        String email = sc.nextLine();
+        String email = lerTextoObrigatorio("Email do cliente: ");
 
         System.out.println("Nível de satisfação de 0 a 5: ");
         int nivelDeSatisfacao = sc.nextInt();
@@ -90,16 +87,13 @@ public class MenuControle {
 
         Cliente cliente = new Cliente(1, nomeCliente, segmento, email, nivelDeSatisfacao);
 
-        System.out.println("Título da reunião: ");
-        String tituloReuniao = sc.nextLine();
+        String tituloReuniao = lerTextoObrigatorio("Título da reunião: ");
 
-        System.out.println("Assunto da reunião: ");
-        String assunto = sc.nextLine();
+        String assunto = lerTextoObrigatorio("Assunto da reunião: ");
 
         Reuniao reuniao = new Reuniao(1, tituloReuniao, LocalDate.now(), assunto, cliente);
 
-        System.out.println("Digite a transcrição da reunião:");
-        String conteudo = sc.nextLine();
+        String conteudo = lerTextoObrigatorio("Digite a transcrição da reunião:");
 
         Transcricao transcricao = new Transcricao(
                 1,
@@ -150,4 +144,20 @@ public class MenuControle {
             System.out.println("==== Atenção: existem insights críticos para acompanhamento. ====");
         }
     }
+
+    private String lerTextoObrigatorio(String mensagem) {
+        String valor = "";
+
+        while (valor.isBlank()) {
+            System.out.print(mensagem);
+            valor = sc.nextLine();
+
+            if (valor.isBlank()) {
+                System.out.println("Preencha esse campo.");
+            }
+        }
+
+        return valor;
+    }
+
 }
