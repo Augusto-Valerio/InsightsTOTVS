@@ -34,10 +34,6 @@ public class Participante implements Resumivel {
         return empresa != null && empresa.equalsIgnoreCase(nomeEmpresa);
     }
 
-    public boolean possuiEmailCorporativo() {
-        return email != null && email.contains("@");
-    }
-
     public int getId() {
         return id;
     }

@@ -41,10 +41,6 @@ public class InsightOportunidade extends Insight {
                 " | Potencial de ganho: R$ " + potencialGanho;
     }
 
-    public boolean possuiAltoPotencial() {
-        return potencialGanho >= 10000;
-    }
-
     public String getAreaOportunidade() {
         return areaOportunidade;
     }

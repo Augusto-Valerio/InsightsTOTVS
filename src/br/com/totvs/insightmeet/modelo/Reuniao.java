@@ -54,16 +54,6 @@ public class Reuniao implements Resumivel {
         }
     }
 
-    public boolean possuiParticipantes() {
-        return !participantes.isEmpty();
-    }
-
-    public boolean pertenceAoCliente(Cliente cliente) {
-        return this.cliente != null &&
-                cliente != null &&
-                this.cliente.getId() == cliente.getId();
-    }
-
     public int getId() {
         return id;
     }

@@ -40,10 +40,6 @@ public class Cliente implements Resumivel {
                 " | Satisfação: " + nivelSatisfacao + "/5";
     }
 
-    public boolean possuiBaixaSatisfacao() {
-        return nivelSatisfacao >= 1 && nivelSatisfacao <= 2;
-    }
-
     public int getId() {
         return id;
     }
