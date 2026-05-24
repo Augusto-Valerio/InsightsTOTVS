@@ -1,6 +1,7 @@
 package br.com.totvs.insightmeet.modelo;
 
 import br.com.totvs.insightmeet.interfaces.Resumivel;
+import br.com.totvs.insightmeet.util.FormatadorData;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class RelatorioAnalise implements Resumivel {
                 : "Reuniao nao informada";
 
         return "Relatorio da reuniao: " + tituloReuniao +
-                " | Data: " + dataGeracao +
+                " | Data: " + FormatadorData.formatar(dataGeracao) +
                 " | Termos relevantes: " + termosRelevantes.size() +
                 " | Insights: " + insights.size();
     }

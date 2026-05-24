@@ -37,7 +37,7 @@ public class Cliente implements Resumivel {
         return "Cliente: " + nome +
                 " | Segmento: " + segmento +
                 " | Email: " + emailContato +
-                " | Satisfacao: " + nivelSatisfacao + "/5";
+                " | Satisfação: " + nivelSatisfacao + "/5";
     }
 
     public boolean possuiBaixaSatisfacao() {

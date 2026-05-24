@@ -1,6 +1,7 @@
 package br.com.totvs.insightmeet.modelo;
 
 import br.com.totvs.insightmeet.interfaces.Resumivel;
+import br.com.totvs.insightmeet.util.FormatadorData;
 
 import java.time.LocalDate;
 
@@ -33,7 +34,7 @@ public abstract class Insight implements Resumivel {
         return "Insight: " + titulo +
                 " | Tipo: " + obterTipo() +
                 " | Prioridade: " + prioridade +
-                " | Data: " + dataGeracao;
+                " | Data: " + FormatadorData.formatar(dataGeracao);
     }
 
     public boolean possuiAltaPrioridade() {
