@@ -1,0 +1,140 @@
+package br.com.totvs.insightmeet.controle;
+
+import br.com.totvs.insightmeet.dados.DadosSeed;
+import br.com.totvs.insightmeet.modelo.*;
+import br.com.totvs.insightmeet.servico.AnalisadorTranscricao;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+public class MenuControle {
+    private Scanner sc;
+    private AnalisadorTranscricao analisadorTranscricao;
+    private DadosSeed dadosSeed;
+
+    public MenuControle() {
+        this.sc = new Scanner(System.in);
+        this.analisadorTranscricao = new AnalisadorTranscricao();
+        this.dadosSeed = new DadosSeed();
+    }
+
+    public void iniciar() {
+        int opcao = -1;
+
+        while (opcao != 0) {
+            exibirMenu();
+            opcao = lerOpcao();
+
+            if (opcao == 1) {
+                executarAnaliseComDadosSeed();
+            } else if (opcao == 2) {
+                executarAnaliseComEntradaUsuario();
+            } else if (opcao == 0) {
+                System.out.println("Encerrando o InsightMeet TOTVS...");
+            } else {
+                System.out.println("Opção inválida.");
+            }
+
+            System.out.println();
+        }
+
+        sc.close();
+    }
+
+    private void exibirMenu() {
+        System.out.println("==== InsightMeet TOTVS ====");
+        System.out.println("1 - Analisar dados seed");
+        System.out.println("2 - Digitar nova transcrição");
+        System.out.println("0 - Sair");
+        System.out.print("Escolha uma opção: ");
+    }
+
+    private int lerOpcao() {
+        int opcao = sc.nextInt();
+        sc.nextLine();
+
+        return opcao;
+    }
+
+    // Executa a análise usando dados já cadastrados para teste.
+    private void executarAnaliseComDadosSeed() {
+        Cliente cliente = dadosSeed.criarClienteSeed();
+        Reuniao reuniao = dadosSeed.criarReuniaoSeed(cliente);
+        Transcricao transcricao = dadosSeed.criarTranscricaoSeed(reuniao);
+
+        RelatorioAnalise relatorio = analisadorTranscricao.analisar(transcricao);
+
+        exibirResultado(cliente, reuniao, transcricao, relatorio);
+    }
+
+    // Executa a análise com dados informados pelo usuário no console.
+    private void executarAnaliseComEntradaUsuario() {
+        System.out.println("Nome do cliente: ");
+        String nomeCliente = sc.nextLine();
+
+        System.out.println("Segmento do cliente: ");
+        String segmento = sc.nextLine();
+
+        System.out.println("Email do cliente: ");
+        String email = sc.nextLine();
+
+        System.out.println("Nível de satisfação de 0 a 5: ");
+        int nivelDeSatisfacao = sc.nextInt();
+        sc.nextLine();
+
+        Cliente cliente = new Cliente(1, nomeCliente, segmento, email, nivelDeSatisfacao);
+
+        System.out.println("Título da reunião: ");
+        String tituloReuniao = sc.nextLine();
+
+        System.out.println("Assunto da reunião: ");
+        String assunto = sc.nextLine();
+
+        Reuniao reuniao = new Reuniao(1, tituloReuniao, LocalDate.now(), assunto, cliente);
+
+        System.out.println("Digite a transcrição da reunião:");
+        String conteudo = sc.nextLine();
+
+        Transcricao transcricao = new Transcricao(
+                1,
+                conteudo,
+                "pt-BR",
+                reuniao
+        );
+
+        RelatorioAnalise relatorio = analisadorTranscricao.analisar(transcricao);
+
+        exibirResultado(cliente, reuniao, transcricao, relatorio);
+    }
+
+    private void exibirResultado(Cliente cliente, Reuniao reuniao, Transcricao transcricao, RelatorioAnalise relatorio) {
+        System.out.println();
+        System.out.println("==== Resultado da Análise ====");
+        System.out.println(cliente.exibirResumo());
+        System.out.println(reuniao.exibirResumo());
+        System.out.println(transcricao.exibirResumo());
+        System.out.println(relatorio.exibirResumo());
+        System.out.println(relatorio.gerarResumoExecutivo());
+
+        System.out.println();
+        System.out.println("==== Termos relevantes: ====");
+        for (TermoRelevante termo : relatorio.getTermosRelevantes()) {
+            System.out.println("- " + termo.exibirResumo());
+        }
+
+        System.out.println();
+        System.out.println("==== Insights gerados: ====");
+        for (Insight insight : relatorio.getInsights()) {
+            System.out.println("\n- " + insight.exibirResumo());
+            System.out.println(" Descrição: " + insight.getDescricao());
+            System.out.println(" Ação recomendada: " + insight.gerarAcaoRecomendada());
+        }
+
+        System.out.println();
+        if (relatorio.possuiInsightsCriticos()) {
+            System.out.println("==== Atenção: existem insights críticos para acompanhamento. ====");
+        } else {
+            System.out.println("Nenhum insight crítico identificado.");
+        }
+    }
+}
