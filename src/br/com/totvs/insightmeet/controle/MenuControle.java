@@ -29,7 +29,7 @@ public class MenuControle {
             } else if (opcao == 2) {
                 executarAnaliseComEntradaUsuario();
             } else if (opcao == 0) {
-                System.out.println("Encerrando o InsightMeet TOTVS...");
+                System.out.println("Encerrando o Insights TOTVS...");
             } else {
                 System.out.println("\nOpção inválida.");
             }
