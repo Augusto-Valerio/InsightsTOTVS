@@ -5,17 +5,16 @@ import br.com.totvs.insightmeet.modelo.*;
 import br.com.totvs.insightmeet.servico.AnalisadorTranscricao;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class MenuControle {
-    private Scanner sc;
     private AnalisadorTranscricao analisadorTranscricao;
     private DadosSeed dadosSeed;
+    private EntradaControle entradaControle;
 
     public MenuControle() {
-        this.sc = new Scanner(System.in);
         this.analisadorTranscricao = new AnalisadorTranscricao();
         this.dadosSeed = new DadosSeed();
+        this.entradaControle = new EntradaControle();
     }
 
     public void iniciar() {
@@ -23,7 +22,7 @@ public class MenuControle {
 
         while (opcao != 0) {
             exibirMenu();
-            opcao = lerOpcao();
+            opcao = entradaControle.lerOpcao();
 
             if (opcao == 1) {
                 executarAnaliseComDadosSeed();
@@ -38,28 +37,15 @@ public class MenuControle {
             System.out.println();
         }
 
-        sc.close();
+        entradaControle.fechar();
     }
 
     private void exibirMenu() {
-        System.out.println("==== InsightMeet TOTVS ====");
+        System.out.println("==== Insights TOTVS ====");
         System.out.println("1 - Analisar dados seed");
         System.out.println("2 - Digitar nova transcrição");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
-    }
-
-    private int lerOpcao() {
-        String entrada = sc.nextLine();
-
-        if (entrada.equals("1")) {
-            return 1;
-        } else if (entrada.equals("2")) {
-            return 2;
-        } else if (entrada.equals("0")) {
-            return 0;
-        }
-        return -1;
     }
 
     // Executa a análise usando dados já cadastrados para teste.
@@ -75,25 +61,25 @@ public class MenuControle {
 
     // Executa a análise com dados informados pelo usuário no console.
     private void executarAnaliseComEntradaUsuario() {
-        String nomeCliente = lerTextoObrigatorio("Nome do cliente: ");
+        String nomeCliente = entradaControle.lerTextoObrigatorio("Nome do cliente: ");
 
-        String segmento = lerTextoObrigatorio("Segmento do cliente: ");
+        String segmento = entradaControle.lerTextoObrigatorio("Segmento do cliente: ");
 
-        String email = lerEmailObrigatorio("Email do cliente: ");
+        String email = entradaControle.lerEmailObrigatorio("Email do cliente: ");
 
-        int nivelDeSatisfacao = lerNivelSatisfacao();
+        int nivelDeSatisfacao = entradaControle.lerNivelSatisfacao();
 
         Cliente cliente = new Cliente(1, nomeCliente, segmento, email, nivelDeSatisfacao);
 
-        String tituloReuniao = lerTextoObrigatorio("Título da reunião: ");
+        String tituloReuniao = entradaControle.lerTextoObrigatorio("Título da reunião: ");
 
-        String assunto = lerTextoObrigatorio("Assunto da reunião: ");
+        String assunto = entradaControle.lerTextoObrigatorio("Assunto da reunião: ");
 
         Reuniao reuniao = new Reuniao(1, tituloReuniao, LocalDate.now(), assunto, cliente);
 
         cadastrarParticipantes(reuniao, cliente);
 
-        String conteudo = lerTextoObrigatorio("Digite o texto da conversa da reunião: ");
+        String conteudo = entradaControle.lerTextoObrigatorio("Digite o texto da conversa da reunião: ");
 
         Transcricao transcricao = new Transcricao(
                 1,
@@ -165,6 +151,20 @@ public class MenuControle {
         System.out.println(relatorio.exibirResumo());
         System.out.println(relatorio.gerarResumoExecutivo());
 
+        if (!entradaControle.aguardarEnterOuVoltar("Pressione Enter para ver os termos relevantes ou digite 0 para voltar ao menu.")) {
+            return;
+        }
+
+        exibirTermosRelevantes(relatorio);
+
+        if (!entradaControle.aguardarEnterOuVoltar("Pressione Enter para ver os insights gerados ou digite 0 para voltar ao menu.")) {
+            return;
+        }
+
+        exibirInsights(relatorio);
+    }
+
+    private void exibirTermosRelevantes(RelatorioAnalise relatorio) {
         System.out.println();
         System.out.println("==== Termos relevantes: ====");
         if (relatorio.getTermosRelevantes().isEmpty()) {
@@ -174,7 +174,9 @@ public class MenuControle {
                 System.out.println("- " + termo.exibirResumo());
             }
         }
+    }
 
+    private void exibirInsights(RelatorioAnalise relatorio) {
         System.out.println();
         System.out.println("==== Insights gerados: ====");
         if (relatorio.getInsights().isEmpty()) {
@@ -196,9 +198,9 @@ public class MenuControle {
 
     private void cadastrarParticipantes(Reuniao reuniao, Cliente cliente) {
         System.out.println("==== Anfitrião TOTVS ====");
-        String nomeAnfitriao = lerTextoObrigatorio("Nome do anfitrião TOTVS: ");
-        String cargoAnfitriao = lerTextoObrigatorio("Cargo do anfitrião TOTVS: ");
-        String emailAnfitriao = lerEmailObrigatorio("Email do anfitrião TOTVS: ");
+        String nomeAnfitriao = entradaControle.lerTextoObrigatorio("Nome do anfitrião TOTVS: ");
+        String cargoAnfitriao = entradaControle.lerTextoObrigatorio("Cargo do anfitrião TOTVS: ");
+        String emailAnfitriao = entradaControle.lerEmailObrigatorio("Email do anfitrião TOTVS: ");
 
         Participante anfitriao = new Participante(
                 1,
@@ -210,13 +212,13 @@ public class MenuControle {
 
         reuniao.adicionarParticipante(anfitriao);
 
-        int quantidadeParticipantes = lerQuantidadeParticipantes();
+        int quantidadeParticipantes = entradaControle.lerQuantidadeParticipantes();
 
         for (int i = 1; i <= quantidadeParticipantes; i++) {
             System.out.println("==== Participante " + i + " do cliente ====");
-            String nome = lerTextoObrigatorio("Nome: ");
-            String cargo = lerTextoObrigatorio("Cargo: ");
-            String email = lerEmailObrigatorio("Email: ");
+            String nome = entradaControle.lerTextoObrigatorio("Nome: ");
+            String cargo = entradaControle.lerTextoObrigatorio("Cargo: ");
+            String email = entradaControle.lerEmailObrigatorio("Email: ");
 
             Participante participante = new Participante(
                     i + 1,
@@ -229,87 +231,5 @@ public class MenuControle {
             reuniao.adicionarParticipante(participante);
         }
     }
-
-    private int lerQuantidadeParticipantes() {
-        String entrada = "";
-        int quantidade = -1;
-
-        while (quantidade < 0) {
-            System.out.print("Quantos participantes do cliente estarão na reunião? ");
-            entrada = sc.nextLine();
-
-            if (entrada.isBlank()) {
-                System.out.println("Preencha esse campo.");
-            } else {
-                try {
-                    quantidade = Integer.parseInt(entrada);
-
-                    if (quantidade < 0) {
-                        System.out.println("Informe zero ou mais participantes.");
-                    }
-                } catch (NumberFormatException erro) {
-                    System.out.println("Informe apenas números.");
-                }
-            }
-        }
-
-        return quantidade;
-    }
-
-    private String lerTextoObrigatorio(String mensagem) {
-        String valor = "";
-
-        while (valor.isBlank()) {
-            System.out.print(mensagem);
-            valor = sc.nextLine();
-
-            if (valor.isBlank()) {
-                System.out.println("Preencha esse campo.");
-            }
-        }
-
-        return valor;
-    }
-
-    private int lerNivelSatisfacao() {
-        String entrada = "";
-
-        while (!entrada.equals("0") &&
-                !entrada.equals("1") &&
-                !entrada.equals("2") &&
-                !entrada.equals("3") &&
-                !entrada.equals("4") &&
-                !entrada.equals("5")) {
-            System.out.print("Nível de satisfação de 0 a 5: ");
-            entrada = sc.nextLine();
-
-            if (!entrada.equals("0") && !entrada.equals("1") &&
-                    !entrada.equals("2") &&
-                    !entrada.equals("3") &&
-                    !entrada.equals("4") &&
-                    !entrada.equals("5")) {
-                System.out.println("Informe um número de 0 a 5.");
-            }
-        }
-        return Integer.parseInt(entrada);
-    }
-
-    private String lerEmailObrigatorio(String mensagem) {
-        String email = "";
-
-        while (email.isBlank() || !email.contains("@")) {
-            System.out.print(mensagem);
-            email = sc.nextLine();
-
-            if (email.isBlank()) {
-                System.out.println("Preencha esse campo.");
-            } else if (!email.contains("@")) {
-                System.out.println("Email inválido. Tente novamente.");
-            }
-        }
-
-        return email;
-    }
-
 
 }

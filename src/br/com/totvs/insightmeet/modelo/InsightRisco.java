@@ -39,10 +39,6 @@ public class InsightRisco extends Insight {
                 " | Causa provável: " + causaProvavel;
     }
 
-    public boolean exigeAcaoImediata() {
-        return "Alto".equalsIgnoreCase(nivelRisco) || possuiAltaPrioridade();
-    }
-
     public String getNivelRisco() {
         return nivelRisco;
     }

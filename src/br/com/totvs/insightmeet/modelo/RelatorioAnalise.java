@@ -1,6 +1,7 @@
 package br.com.totvs.insightmeet.modelo;
 
 import br.com.totvs.insightmeet.interfaces.Resumivel;
+import br.com.totvs.insightmeet.util.FormatadorData;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class RelatorioAnalise implements Resumivel {
                 : "Reuniao nao informada";
 
         return "Relatorio da reuniao: " + tituloReuniao +
-                " | Data: " + dataGeracao +
+                " | Data: " + FormatadorData.formatar(dataGeracao) +
                 " | Termos relevantes: " + termosRelevantes.size() +
                 " | Insights: " + insights.size();
     }
@@ -124,11 +125,7 @@ public class RelatorioAnalise implements Resumivel {
     }
 
     public void setTermosRelevantes(List<TermoRelevante> termosRelevantes) {
-        if (termosRelevantes == null) {
-            this.termosRelevantes = new ArrayList<>();
-        } else {
-            this.termosRelevantes = termosRelevantes;
-        }
+        this.termosRelevantes = termosRelevantes;
     }
 
     public List<Insight> getInsights() {
@@ -136,10 +133,6 @@ public class RelatorioAnalise implements Resumivel {
     }
 
     public void setInsights(List<Insight> insights) {
-        if (insights == null) {
-            this.insights = new ArrayList<>();
-        } else {
-            this.insights = insights;
-        }
+        this.insights = insights;
     }
 }

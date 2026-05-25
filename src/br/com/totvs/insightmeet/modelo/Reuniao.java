@@ -1,6 +1,7 @@
 package br.com.totvs.insightmeet.modelo;
 
 import br.com.totvs.insightmeet.interfaces.Resumivel;
+import br.com.totvs.insightmeet.util.FormatadorData;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Reuniao implements Resumivel {
     @Override
     public String exibirResumo() {
         return "Reunião: " + titulo +
-                " | Data: " + data +
+                " | Data: " + FormatadorData.formatar(data) +
                 " | Assunto: " + assunto +
                 " | Participantes: " + participantes.size();
     }
@@ -51,16 +52,6 @@ public class Reuniao implements Resumivel {
         if (participante != null) {
             participantes.add(participante);
         }
-    }
-
-    public boolean possuiParticipantes() {
-        return !participantes.isEmpty();
-    }
-
-    public boolean pertenceAoCliente(Cliente cliente) {
-        return this.cliente != null &&
-                cliente != null &&
-                this.cliente.getId() == cliente.getId();
     }
 
     public int getId() {

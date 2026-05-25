@@ -40,24 +40,6 @@ public class Transcricao implements Resumivel {
         }
     }
 
-    public boolean contemTermo(String termo) {
-        if (conteudo == null || termo == null) {
-            return false;
-        }
-        return conteudo.toLowerCase().contains(termo.toLowerCase());
-    }
-
-    public String gerarTrechoInicial() {
-        if (conteudo == null || conteudo.isBlank()) {
-            return "Transcrição sem conteúdo.";
-        }
-
-        if (conteudo.length() < 80) {
-            return conteudo;
-        }
-
-        return conteudo.substring(0, 80) + "...";
-    }
 
     public int getId() {
         return id;

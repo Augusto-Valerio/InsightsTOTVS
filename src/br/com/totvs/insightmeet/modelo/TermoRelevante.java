@@ -30,24 +30,6 @@ public class TermoRelevante implements Resumivel {
                 " | Relevancia: " + relevancia;
     }
 
-    public void aumentarFrequencia() {
-        frequencia++;
-    }
-
-    public boolean possuiAltaRelevancia() {
-        return relevancia >= 0.7;
-    }
-
-    public String classificarRelevancia() {
-        if (relevancia >= 0.7) {
-            return "Alta";
-        } else if (relevancia >= 0.4) {
-            return "Média";
-        } else {
-            return "Baixa";
-        }
-    }
-
     public int getId() {
         return id;
     }
