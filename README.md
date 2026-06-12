@@ -186,5 +186,3 @@ java -cp out br.com.totvs.insightmeet.Main
 ```
 
 </details>
-
----
