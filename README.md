@@ -188,7 +188,3 @@ java -cp out br.com.totvs.insightmeet.Main
 </details>
 
 ---
-
-## Status
-
-Projeto finalizado para entrega acadêmica da **Challenge 2026 - TOTVS**.
